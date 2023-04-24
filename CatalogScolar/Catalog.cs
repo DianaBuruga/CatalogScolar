@@ -19,6 +19,8 @@ namespace CatalogScolar
         public Catalog()
         {
             InitializeComponent();
+            nota.DropDownStyle = ComboBoxStyle.DropDownList;
+            materie.DropDownStyle = ComboBoxStyle.DropDownList;
             connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatalogScolar.mdf;Integrated Security=True;Connect Timeout=30";
         }
 
@@ -48,8 +50,7 @@ namespace CatalogScolar
             string comanda = "INSERT INTO Note(Nota, Materie, Data, Profesor, IdElev) " +
                              $"VALUES ('{nota.Text}', '{materie.Text}', '{data.Text}', '{profesor.Text}','{idElev.Text}')";
             ExecutaComanda(comanda);
-            vizualizareNoteElevLaMaterie();
-
+            VizualizareNoteElevLaMaterie();
         }
 
         private void modificaElev_Click(object sender, EventArgs e)
@@ -66,7 +67,7 @@ namespace CatalogScolar
                              $"SET Nota ='{nota.Text}', Materie = '{materie.Text}', Data = '{data.Text}', Profesor = '{profesor.Text}' " +
                              $"WHERE IdElev = '{idElev.Text}'";
             ExecutaComanda(comanda);
-            vizualizareNoteElevLaMaterie();
+            VizualizareNoteElevLaMaterie();
         }
 
         private void ExecutaComanda(string comanda)
@@ -132,7 +133,7 @@ namespace CatalogScolar
                 $"WHERE Nota ='{nota.Text}' AND Materie = '{materie.Text}'AND " +
                 $"Data = '{data.Text}' AND Profesor = '{profesor.Text}' AND IdElev = {idElev.Text}";
             ExecutaComanda(comanda);
-            vizualizareNoteElevLaMaterie();
+            VizualizareNoteElevLaMaterie();
         }
 
         private void vizualizareNote_Click(object sender, EventArgs e)
@@ -144,9 +145,9 @@ namespace CatalogScolar
 
         private void noteElevLaMaterie_Click(object sender, EventArgs e)
         {
-            vizualizareNoteElevLaMaterie();
+            VizualizareNoteElevLaMaterie();
         }
-        private void vizualizareNoteElevLaMaterie()
+        private void VizualizareNoteElevLaMaterie()
         {
             string comanda = "SELECT ELEVI.Id, Nume, Prenume, Nota, Materie, Data, Profesor FROM ELEVI JOIN NOTE ON ELEVI.Id=NOTE.IdElev " +
                             $"WHERE Nume = '{nume.Text}' AND Prenume = '{prenume.Text}' AND Materie ='{materie.Text}'";
